@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_mmm_housekeeping_report" model="ir.actions.report">
+        <field name="name">housekeeping hotel report</field>
+        <field name="model">housekeeping.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hotel_report.w_housekeeping_report</field>
+        <field name="report_file">hotel_report.w_housekeeping_report</field>
+    </record>
+
+    <template id="w_housekeeping_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" style="background:unset">
+                <div class="page">
+                   <div class="oe_structure">
+                        <t>
+                            <h2 align="center">
+                                Report housekeeping  hotel
+                            </h2>
+                        </t>
+                    </div>
+                    <div id="informations" class="row mt-4 mb-4">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                          <p>
+                             <strong>Date:</strong>
+                            <t>
+                                <span t-esc="date_from"/>
+                            </t>
+                          </p>
+                            <strong>Name:</strong>
+                            <t>
+                                <span t-esc="name_id"/>
+                            </t>
+
+                        </div>
+                    </div>
+                    <table class="table table-condensed">
+                           <tr>
+                               <th>Room Number</th>
+                               <th>State</th>
+
+                            </tr>
+
+                    <t t-foreach="lis_line_ids" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['Room No']"/></td>
+                       <td><span t-esc="line['State']"/></td>
+                         </tr>
+                    </t>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access.police_report_wizard,police_report_wizard.police_hotel_report,model_police_report_wizard,base.group_user,1,1,1,1
+access.remaining_report_wizard,Access Remaining Report Wizard,model_remaining_report_wizard,base.group_user,1,1,1,1
+access_roomstatus_report_wizard,Access roomstatus Report Wizard,model_roomstatus_report_wizard,base.group_user,1,1,1,1
+access.daily_report_wizard,daily_report_wizard.daily_hotel_report,model_daily_report_wizard,base.group_user,1,1,1,1
+access.mael_report_wizard,mael_report_wizard.mael_hotel_report,model_mael_report_wizard,base.group_user,1,1,1,1
+access_cash_report_wizard,Access cash Report Wizard,model_cash_report_wizard,base.group_user,1,1,1,1
+access.booking_report_wizard,Access R Report Wizard,model_remaining_report_wizard,base.group_user,1,1,1,1
+access.cashier_report_wizard,cashier_report_wizard.cashier_hotel_report,model_cashier_report_wizard,base.group_user,1,1,1,1
+hotel_report.access_managment_report_wizard,access_managment_report_wizard,hotel_report.model_managment_report_wizard,base.group_user,1,1,1,1
+

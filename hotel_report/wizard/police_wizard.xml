@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="wael_police_report_view" model="ir.ui.view">
+        <field name="name">police Report</field>
+        <field name="model">police.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name_id"/>
+                    <field name="selection_field" widget="radio"/>
+                    <field name="date_form" attrs="{'invisible':[('selection_field','=','occupied')]}"/>
+                    <field name="date_to" attrs="{'invisible':[('selection_field','=','occupied')]}"/>
+                    <field name="nationality_id"/>
+                </group>
+                <footer>
+                    <button name="print_report_one" string="Print" type="object" default_focus="1" class="oe_highlight"
+                            data-hotkey="q"/>
+                    <button name="share_in_whatsapp" string="Send By Whatsapp" type="object" default_focus="1"
+                            class="oe_highlight" data-hotkey="w"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+       </field>
+    </record>
+
+    <record id="action_police_hotel_report" model="ir.actions.act_window">
+        <field name="name">police report</field>
+        <field name="res_model">police.report.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wael_police_report_view"/>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+        id="menu_police_hotel_report"
+        name="Police Report"
+        sequence="5"
+        parent="hotel.hotel_report_menu"
+        action="action_police_hotel_report"/>
+
+</odoo>

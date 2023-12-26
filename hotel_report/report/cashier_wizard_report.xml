@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="maan_chart_report_format" model="report.paperformat">
+        <field name="name">European A4 low margin</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">80</field>
+    </record>
+
+    <record id="action_maan_chart_report" model="ir.actions.report">
+        <field name="name">cashier hotel report</field>
+        <field name="model">cashier.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hotel_report.maan_chart_report</field>
+        <field name="report_file">hotel_report.maan_chart_report</field>
+        <field name="paperformat_id" ref="hotel_report.maan_chart_report_format"/>
+    </record>
+
+    <template id="maan_chart_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure">
+                        <t>
+                            <h2 align="center">
+                                All Cashier Transaction
+                            </h2>
+                        </t>
+                    </div>
+                    <div id="informations" class="row mt-4 mb-4">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <p>
+                                <strong>Date from:</strong>
+                                <span t-esc="date_form"/>
+                            </p>
+                            <p>
+                                <strong>Date to:</strong>
+                                <span t-esc="date_to"/>
+                            </p>
+                        </div>
+                    </div>
+                    <style>
+                        .table-condensed-small {
+                        width: auto;
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: #333;
+                        }
+                        .shaded-background {
+                        background-color:#eaeaea;
+                        }
+
+                    </style>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>Date</th>
+                                <th>Room</th>
+                                <th>Customer</th>
+                                <th>Journal</th>
+                                <th>Amount</th>
+                                <th>Discount</th>
+                                <th>Label</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Employee</th>
+                            </tr>
+                        </thead>
+                        <t t-set="total_cash_amount" t-value="0.00"/>
+                        <t t-set="total_debit_amount" t-value="0.00"/>
+                        <t t-set="total_crebit_amount" t-value="0.00"/>
+                        <t t-foreach="cash_lisst_line_ids" t-as="line">
+                            <tr>
+                                <td>
+                                    <span t-esc="line['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['rooms_ref']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['customer']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['journal']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="float(line['Amount'] or 0.00)"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['Created by']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-esc="line['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['rooms_ref']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['customer']"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['discount']"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['Created by']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-esc="line['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['rooms_ref']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['customer']"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['lebels']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['debit']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['credit']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['Created by']"/>
+                                </td>
+                            </tr>
+                            <t t-set="total_cash_amount"
+                               t-value="total_cash_amount + float(line['Amount'] or 0.00)"/>
+                            <t t-set="total_debit_amount"
+                               t-value="total_debit_amount + float(line['debit'] or 0.00)"/>
+                            <t t-set="total_crebit_amount"
+                               t-value="total_crebit_amount + float(line['credit'] or 0.00)"/>
+                        </t>
+                        <t t-set="total_visa_amount" t-value="0.00"/>
+                        <t t-set="total_debit_amount" t-value="0.00"/>
+                        <t t-set="total_crebit_amount" t-value="0.00"/>
+                        <t t-foreach="visa_lisst_line_ids" t-as="line">
+                            <tr>
+                                <td>
+                                    <span t-esc="line['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['rooms_ref']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['customer']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['journal']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="float(line['Amount'] or 0.00)"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['Created by']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-esc="line['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['rooms_ref']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['customer']"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['discount']"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['Created by']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span t-esc="line['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['rooms_ref']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['customer']"/>
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    ____
+                                </td>
+                                <td>
+                                    <span t-esc="line['lebels']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['debit']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['credit']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['Created by']"/>
+                                </td>
+                            </tr>
+                            <t t-set="total_visa_amount"
+                               t-value="total_visa_amount + float(line['Amount'] or 0.00)"/>
+                            <t t-set="total_debit_amount"
+                               t-value="total_debit_amount + float(line['debit'] or 0.00)"/>
+                            <t t-set="total_crebit_amount"
+                               t-value="total_crebit_amount + float(line['credit'] or 0.00)"/>
+                        </t>
+                    </table>
+                    <table class="table table-condensed-small">
+                        <tr>
+                            <td>
+                                <strong class="shaded-background">Total Cash Amount:</strong>
+                            </td>
+                            <td colspan="1">
+                                <span t-esc="'{:,.3f}'.format(total_cash_amount)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong class="shaded-background">Total Visa Amount:</strong>
+                            </td>
+                            <td colspan="1">
+                                <span t-esc="'{:,.3f}'.format(total_visa_amount)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong class="shaded-background">All Total Amount:</strong>
+                            </td>
+                            <td colspan="1">
+                                <span t-esc="'{:,.3f}'.format(total_cash_amount + total_visa_amount)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong class="shaded-background">Total Debit Amount:</strong>
+                            </td>
+                            <td colspan="1">
+                                <span t-esc="'{:,.3f}'.format(total_debit_amount)"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong class="shaded-background">Total credit Amount:</strong>
+                            </td>
+                            <td colspan="1">
+                                <span t-esc="'{:,.3f}'.format(total_crebit_amount)"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

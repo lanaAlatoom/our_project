@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="x_hotel_report_format" model="report.paperformat">
+            <field name="name">European A4 low margin</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+
+
+        <record id="action_wael_hotel_report" model="ir.actions.report">
+            <field name="name">police hotel report</field>
+            <field name="model">police.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_report.x_hotel_report</field>
+            <field name="report_file">hotel_report.x_hotel_report</field>
+            <!--        <field name="print_report_name">(object._get_report_base_filename())</field>   -->
+            <field name="paperformat_id" ref="hotel_report.x_hotel_report_format"/>
+        </record>
+
+        <template id="x_hotel_report">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+                    <div class="page" style="transform: rotate(270deg); transform-origin: top left;">
+                        <div class="page">
+                            <h2 align="center" style="font-size: 18px;">Police Report</h2>
+
+                        </div>
+                        <div id="informations" class="row mt-4 mb-4">
+                            <div class="col-auto col-3 mw-100 mb-2">
+                                <p>
+                                    <!--                                <strong>Date:</strong>-->
+                                    <t>
+                                        <!--                                    <span t-esc="date_from"/>-->
+                                    </t>
+                                </p>
+                                <!--                            <strong>Name:</strong>-->
+                                <!--                            <t>-->
+                                <!--                                <span t-esc="name_id"/>-->
+                                <!--                            </t>-->
+
+                            </div>
+                        </div>
+                        <table cellpadding="5" class="table table-bordered table-condensed" width="100%">
+                            <thead>
+                                <tr style="background-color:#eaeaea;">
+                                    <th>Guset Name</th>
+                                    <th>Room</th>
+                                    <th>Document Type</th>
+                                    <th>Document Num</th>
+                                    <th>Checkin</th>
+                                    <th>Gender</th>
+                                    <th>Date Of Birth</th>
+                                    <th>Nationality</th>
+                                </tr>
+                            </thead>
+                            <tbody width="100%">
+                                <t t-foreach="list_line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="line['guset name']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line['hotel rooom']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line['document type']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line['id card number']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line['Checkin Date']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line['gender']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line['date of birth']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line['Nationality']"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+

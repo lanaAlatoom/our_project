@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="wael_roomstatus_report_view" model="ir.ui.view">
+        <field name="name">Room Status Report</field>
+        <field name="model">roomstatus.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+               <group>
+                   <field name="name_id"/>
+                    <field name="date_from"/>
+               </group>
+             <footer>
+                <button name="print_report" string="Print" type="object" default_focus="1" class="oe_highlight" data-hotkey="q"/>
+                <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z" />
+            </footer>
+            </form>
+       </field>
+    </record>
+
+    <record id="action_roomstatus_hotel_report" model="ir.actions.act_window">
+        <field name="name">Room Status report</field>
+        <field name="res_model">roomstatus.report.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wael_roomstatus_report_view"/>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+        id="menu_roomstatus_hotel_report"
+        name="Housekeeping Report "
+        sequence="8"
+        parent="hotel.hotel_report_menu"
+        action="action_roomstatus_hotel_report"/>
+
+</odoo>

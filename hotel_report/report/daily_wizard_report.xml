@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_ewe_hotel_report" model="ir.actions.report">
+        <field name="name">daily hotel report</field>
+        <field name="model">daily.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hotel_report.n_hotel_report</field>
+        <field name="report_file">hotel_report.n_hotel_report</field>
+    </record>
+
+    <template id="n_hotel_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" style="background:unset">
+                <div class="page">
+                   <div class="oe_structure">
+                        <t>
+                            <h2 align="center">
+                                 Daily Report
+                            </h2>
+                        </t>
+                    </div>
+                     <div id="informations" class="row mt-4 mb-4">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                          <p>
+                             <strong>Date From:</strong>
+                            <t>
+                                <span t-esc="date_form"/>
+                            </t>
+                          </p>
+                            <strong>Date To:</strong>
+                            <t>
+                                <span t-esc="date_to"/>
+                            </t>
+
+                        </div>
+                    </div>
+                     <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                           <tr>
+                                <th>Guest Name </th>
+                                <th>Room </th>
+                                <th>Taxes </th>
+                                <th>Total</th>
+                                <th>Checkin </th>
+                                <th>Checkout </th>
+                                <th>Empolyee </th>
+                            </tr>
+                        </thead>
+
+                    <t t-foreach="lisst_line_ids" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['Guest Name']"/></td>
+                        <td><span t-esc="line['Room Number']"/></td>
+                        <td><span t-esc="line['Taxes']"/></td>
+                        <td><span t-esc="line['Total']"/></td>
+                        <td><span t-esc="line['chickin']"/></td>
+                        <td><span t-esc="line['chickout']"/></td>
+                        <td><span t-esc="line['Created by']"/></td>
+
+                    </tr>
+                    </t>
+                    </table>
+                     </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

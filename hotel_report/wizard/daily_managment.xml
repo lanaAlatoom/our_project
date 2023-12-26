@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="managment_daily_report_view" model="ir.ui.view">
+        <field name="name">Daily Managment Report</field>
+        <field name="model">managment.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                 <group>
+                   <field name="date_from" readonly="0"/>
+                    <field name="date_to" readonly="0"/>
+               </group>
+             <footer>
+                <button name="send_by_email" string="Send By Email" type="object" default_focus="1" class="oe_highlight" data-hotkey="q"/>
+                <button name="print_report" string="Print" type="object" default_focus="1" class="oe_highlight" data-hotkey="q"/>
+                <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z" />
+            </footer>
+            </form>
+       </field>
+    </record>
+
+   <record id="action_daily_managment_hotel_report" model="ir.actions.act_window">
+        <field name="name">daily managment report</field>
+        <field name="res_model">managment.report.wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="managment_daily_report_view"/>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+        id="menu_daily_managment_hotel_report"
+        name="Daily Management Report"
+        sequence="3"
+        parent="hotel.hotel_report_menu"
+        action="action_daily_managment_hotel_report"/>
+
+</odoo>

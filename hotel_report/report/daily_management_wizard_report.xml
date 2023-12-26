@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="management_daily_report_format" model="report.paperformat">
+        <field name="name">European A4 low margin</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <record id="action_management_daily_report" model="ir.actions.report">
+        <field name="name">Daily Management Report</field>
+        <field name="model">managment.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hotel_report.daily_managment_report</field>
+        <field name="report_file">hotel_report.daily_managment_report</field>
+        <field name="paperformat_id" ref="hotel_report.management_daily_report_format"/>
+    </record>
+
+    <template id="daily_managment_report">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                  <style>
+                .page {
+                    page-break-before: always;
+                }
+            </style>
+
+                <div class="page">
+
+                     <h2 align="center" style="font-size: 24px;">Daily Management Report</h2>
+
+                    <!-- Cash Details Table -->
+             <div class="row mt-4 mb-4">
+    <div class="col-auto col-3 mw-100 mb-2"></div>
+</div>
+
+<h2 align="center" style="font-size: 18px;">Cash Details</h2>
+<table class="table table-bordered table-condensed" style="width: 100%;">
+    <thead>
+        <tr style="background-color:#eaeaea;">
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Room Number</th>
+            <th>Type Of Journal</th>
+            <th>Amount</th>
+            <th>Employee</th>
+        </tr>
+    </thead>
+    <tbody style="text-align: center;">
+        <t t-set="cash_total" t-value="0.0"/>
+        <t t-set="visa_total" t-value="0.0"/>
+        <t t-set="refund_total" t-value="0.0"/>
+        <t t-foreach="cash_lisst_line_ids" t-as="line">
+            <tr>
+                <td>
+                    <span t-esc="line['date']"/>
+                </td>
+                <td>
+                    <span t-esc="line['customer']"/>
+                </td>
+                <td>
+                    <span t-esc="line['rooms_ref']"/>
+                </td>
+                <td>
+                    <span t-esc="line['journal']"/>
+                </td>
+                <td>
+                    <span t-esc="line['Amount']"/>
+                </td>
+
+                <td>
+                    <span t-esc="line['Created by']"/>
+                </td>
+            </tr>
+            <t t-if="line['journal'] == 'Cash'">
+                <t t-set="cash_total" t-value="cash_total + line['Amount']"/>
+            </t>
+            <t t-elif="line['journal'] == 'Visa'">
+                <t t-set="visa_total" t-value="visa_total + line['Amount']"/>
+            </t>
+            <t t-elif="line['journal'] == 'Refund'">
+                <t t-set="refund_total" t-value="refund_total + line['Amount']"/>
+            </t>
+        </t>
+    </tbody>
+    <tbody style="text-align: center;">
+    <t t-foreach="transfer_lisst_line_ids" t-as="line">
+        <tr>
+            <td>
+                <span t-esc="line['create_date']"/>
+            </td>
+            <td>
+                <span t-esc="line['customer']"/>
+            </td>
+            <td>
+                <span t-esc="line['rooms_ref']"/>
+            </td>
+            <td>
+                <span t-esc="line['lebels']"/>
+            </td>
+            <td>
+                <span t-esc="'%.2f' %line['credit']"/>
+            </td>
+            <td>
+                <span t-esc="line['Created by']"/>
+            </td>
+        </tr>
+    </t>
+</tbody>
+
+    <!-- Footer Rows -->
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="background-color: #f2f2f2;">
+            <strong>Total Cash:
+                <span t-esc="cash_total - refund_total"/>
+            </strong>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="background-color: #f2f2f2;">
+            <strong>Total Visa:
+                <span t-esc="visa_total"/>
+            </strong>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="background-color: #f2f2f2;">
+            <strong>Total Refund:
+                <span t-esc="refund_total"/>
+            </strong>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+         <td style="background-color: #f2f2f2;">
+            <strong>Total Transfers:
+                <span t-esc="sum(line['credit'] for line in transfer_lisst_line_ids)"/>
+            </strong>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="background-color: #f2f2f2;">
+            <strong>Total Amount (All Cashier):
+                <span t-esc="sum(line['Amount'] for line in cash_lisst_line_ids)"/>
+            </strong>
+        </td>
+        <td></td>
+    </tr>
+
+</table>
+
+
+
+                </div>
+
+
+                    <t t-set="total_maintenance"
+                       t-value="sum(1 for line in housekeeping_lisst_line_ids if line['Housekeeping Type'] == 'maintenance')"/>
+                    <t t-set="total_checkin"
+                       t-value="sum(1 for line in housekeeping_lisst_line_ids if line['Clean Type'] == 'checkin')"/>
+                    <t t-set="total_checkout"
+                       t-value="sum(1 for line in housekeeping_lisst_line_ids if line['Clean Type'] == 'checkout')"/>
+
+                    <!-- Housekeeping Table -->
+                     <div class="page">
+
+                    <h2 align="center" style="font-size: 18px;">Housekeeping</h2>
+                    <table class="table table-bordered table-condensed" style="width: 100%;">
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>Housekeeper</th>
+                                <th>Inspector</th>
+                                <th>Room Number</th>
+                                <th>Clean Type</th>
+                                <th>Housekeeping Type</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="housekeeping_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['Housekeeper']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Inspector']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Room Number']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Clean Type']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Housekeeping Type']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Note']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr t-if="total_maintenance > 0">
+                                <td style="background-color: #f2f2f2;">Total Maintenance Rooms:</td>
+                                <td style="background-color: #f2f2f2;">
+                                    <span t-esc="total_maintenance"/>
+                                </td>
+                            </tr>
+                            <tr t-if="total_checkin > 0">
+                                <td style="background-color: #f2f2f2;">Total Cleaned Of Occupied Rooms:</td>
+                                <td style="background-color: #f2f2f2;">
+                                    <span t-esc="total_checkin"/>
+                                </td>
+                            </tr>
+                            <tr t-if="total_checkout > 0">
+                                <td style="background-color: #f2f2f2;">Total Cleaned Of Checkout Rooms:</td>
+                                <td style="background-color: #f2f2f2;">
+                                    <span t-esc="total_checkout"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table></div>
+<!--            <div class="page">-->
+
+<!--                    <h2 align="center" style="font-size: 18px;">Transfers Accounts Details</h2>-->
+<!--                    <table class="table table-bordered table-condensed" style="width: 100%;">-->
+<!--                        <thead>-->
+<!--                            <tr style="background-color:#eaeaea;">-->
+<!--                                <th>Date</th>-->
+<!--                                <th>Customer</th>-->
+<!--                                <th>Room Number</th>-->
+<!--                                <th>Description</th>-->
+<!--                                <th>Credit</th>-->
+<!--                                <th>Debit</th>-->
+<!--                                <th>Employee</th>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody style="text-align: center;">-->
+<!--                            <t t-foreach="transfer_lisst_line_ids" t-as="line">-->
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="line['create_date']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="line['customer']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="line['rooms_ref']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="line['lebels']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="'%.2f' %line['credit']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="'%.2f' %line['debit']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="line['Created by']"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                            <tr>-->
+<!--                                <td></td>-->
+<!--                                <td style="background-color: #f2f2f2;">-->
+<!--                                    <strong>Total credit:-->
+<!--                                        <span t-esc="sum(line['credit'] for line in transfer_lisst_line_ids)"/>-->
+<!--                                    </strong>-->
+<!--                                </td>-->
+<!--                                <td style="background-color: #f2f2f2;">-->
+<!--                                    <strong>Total debit:-->
+<!--                                        <span t-esc="sum(line['debit'] for line in transfer_lisst_line_ids)"/>-->
+<!--                                    </strong>-->
+<!--                                </td>-->
+<!--                                <td></td>-->
+<!--                            </tr>-->
+<!--                        </tbody>-->
+<!--                    </table></div>-->
+                <div class="page">
+
+                    <h2 align="center" style="font-size: 18px;">Room Occupancy Details</h2>
+                    <table class="table table-bordered" style="width: 100%;">
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>Customer</th>
+                                <th>Room Number</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Price</th>
+                                <th>Night/Qty</th>
+                                <th>Discounts</th>
+                                <th>Remaining Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="balance_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['customer']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Room Number']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['check in']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['check out']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['price']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['night']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['discounts']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['remaining amount']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background-color:#f2f2f2;">
+                                <td>Total Rates:</td>
+                                <td>
+                                    <span t-esc="sum(line['price'] for line in balance_lisst_line_ids)"/>
+                                </td>
+                                <td>Total Occupied:</td>
+                                <td>
+                                    <span t-esc="len(balance_lisst_line_ids)"/>
+                                </td>
+                            </tr>
+                            <tr style="background-color:#f2f2f2;">
+                                <td>Occupancy :</td>
+                                <td>
+                                    <span t-esc="'%.2f' % ((len(balance_lisst_line_ids) / total_room) * 100)"/>%
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table></div>
+<!--                       <div class="page">-->
+
+<!--                    <h2 align="center" style="font-size: 18px;">OTA Status Today</h2>-->
+<!--                    <table class="table table-bordered table-condensed" style="width: 100%;">-->
+<!--                        <thead>-->
+<!--                            <tr style="background-color:#eaeaea;">-->
+<!--                                <th>Room Type</th>-->
+<!--                                <th>Available In OTA</th>-->
+<!--                                <th>Rate In OTA</th>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody style="text-align: center;">-->
+<!--                            <t t-foreach="ota_lisst_line_ids" t-as="line">-->
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="line['Room Type']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="line['Quantity In OTA']"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="'%.2f' % line['price In OTA']"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                        </tbody>-->
+<!--                    </table></div>-->
+                    <div class="page">
+
+                    <h2 align="center" style="font-size: 18px;">Other Sales</h2>
+                    <table class="table table-bordered table-condensed" style="width: 100%;">
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>(SERVICE) Description</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <t t-foreach="service_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['Description']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Product']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['price']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['Total']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>(RESTAURANT) QTY</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody style="text-align: center;">
+
+                            <t t-foreach="food_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['QTY']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Product']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['price']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['Total']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>(LAUNDRY) QTY</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <t t-foreach="laundry_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['QTY']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Product']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['price']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['Total']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table></div>
+                <div class="page">
+
+                    <h2 align="center" style="font-size: 18px;">City Ledger</h2>
+                    <table class="table table-bordered table-condensed" style="width: 100%;">
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Debit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="ledger_lisst_line_ids" t-as="partner">
+                                <tr>
+                                    <td>
+                                        <span t-esc="partner['partner']"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <t t-foreach="partner['lines']" t-as="line">
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <span t-esc="line['label']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="'%.2f' % line['Debit']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td style="background-color: #f2f2f2;">
+                                        <strong>Total Debit:</strong>
+                                    </td>
+                                    <td></td>
+                                    <td style="background-color: #f2f2f2;">
+                                        <strong>
+                                            <span t-esc="'%.2f' % sum(line['Debit'] for line in partner['lines'])"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr style="background-color: #f2f2f2;">
+                                <td>
+                                    <strong>All Debit Total:</strong>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <strong>
+                                        <span t-esc="'%.2f' % sum(partner['Debit'] for partner in ledger_lisst_line_ids)"/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table></div>
+                     <div class="page">
+
+                    <h2 align="center" style="font-size: 18px;">Changes And Moves</h2>
+                    <table class="table table-bordered table-condensed" style="width: 100%;">
+                        <thead>
+                            <tr style="background-color: #eaeaea;">
+                                <th>Date</th>
+                                <th>Guest Name</th>
+                                <th>Type</th>
+                                <th>From Room</th>
+                                <th>To Room</th>
+                                <th>From Price</th>
+                                <th>To Price</th>
+                                <th>Discount</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <t t-foreach="move_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['create_date']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['partner_name']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['trans_type']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['oldest_room']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['rooms_new']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['oldest_price']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['new_rate']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f' % line['discounts']"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table></div>
+                     <div class="page">
+
+                    <h2 align="center" style="font-size: 18px;">CheckIn And Checkout</h2>
+                    <table class="table table-bordered table-condensed" style="width: 100%;">
+                        <thead>
+                            <tr style="background-color:#eaeaea;">
+                                <th>Description</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align: center;">
+                            <tr>
+                                <td>Total Checkout Room </td>
+                                <td>
+                                    <t t-esc="checkout_room_count"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total Checkin Room</td>
+                                <td>
+                                    <t t-esc="checkin_room_count"/>
+                                </td>
+                            </tr>
+<!--                            <tr>-->
+<!--                                <td>Total Checkin Rooms For 6AM</td>-->
+<!--                                <td>-->
+<!--                                    <t t-esc="checkin_room_for_6am"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+
+                            <tr>
+                                <td>Total Confirm Rooms</td>
+                                <td>
+                                    <t t-esc="confirm_room_count"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total Confirm Rooms in future</td>
+                                <td>
+                                    <t t-esc="confirm_room_count_fut"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table></div>
+            </t>
+        </t>
+    </template>
+</odoo>

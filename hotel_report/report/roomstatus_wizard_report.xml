@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_msm_roomstatus_report" model="ir.actions.report">
+        <field name="name">Room Status hotel report</field>
+        <field name="model">roomstatus.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hotel_report.w_roomstatus_report</field>
+        <field name="report_file">hotel_report.w_roomstatus_report</field>
+    </record>
+    <template id="w_roomstatus_report">
+        <t t-call="web.html_container">
+            <style>
+                .report-font-smaller {
+                    font-size: 11px;
+                }
+
+                /* Define A4 page size */
+                @page {
+                    size: A4;
+                    margin: 0;
+                }
+
+                /* Set body and page margins to 0 */
+                body {
+                    margin: 0;
+                }
+
+                .page {
+                    margin: 0;
+                    padding: 0px; /* Adjust padding as needed */
+                }
+
+                /* Adjust table styling as needed */
+                .report-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+
+                .report-table th,
+                .report-table td {
+                    border: 1px solid #000; /* Add borders to table cells */
+                    padding: 5px; /* Adjust padding as needed */
+                }
+
+                .report-table th {
+                    background-color: #f0f0f0; /* Add background color to header cells */
+                }
+            </style>
+            <div class="page">
+                <div class="oe_structure">
+                    <h4 align="center">Housekeeping Report</h4>
+                </div>
+                <div id="informations" class="row mt-4 mb-4">
+                    <div class="col-auto col-3 mw-100 mb-2">
+                        <p>
+                            <strong>Date:</strong>
+                            <span t-esc="date_from"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="report-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%;">Room Number ( Vacant )</th>
+                                        <th style="width: 50%;">State</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="lis_line_ids" t-as="line">
+                                        <tr t-if="line['Folio Status'] == 'Vacant'">
+                                            <td style="text-align: center;" class="report-font-smaller">
+                                                <span t-esc="line['Room No']"/>
+                                            </td>
+                                            <td style="text-align: center;" class="report-font-smaller">
+                                                <t t-if="line['State'] == 'dirty'">
+                                                    <span t-esc="line['State']"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>clean</span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="report-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50%;">Room Number ( Occupied )</th>
+                                        <th style="width: 50%;">State</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="lis_line_ids" t-as="line">
+                                        <tr t-if="line['Folio Status'] == 'occupied'">
+                                            <td style="text-align: center;" class="report-font-smaller">
+                                                <span t-esc="line['Room No']"/>
+                                            </td>
+                                            <td style="text-align: center;" class="report-font-smaller">
+                                                <t t-if="line['State'] == 'dirty'">
+                                                    <span t-esc="line['State']"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>clean</span>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <record id="ir_cron_send_email" model="ir.cron">
+            <field name="name">Send Daily Report By Email</field>
+            <field name="model_id" ref="model_managment_report_wizard"/>
+            <field name="state">code</field>
+            <field name="code">model.send_by_email()</field>
+            <field name="interval_number">3</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="True"/>
+            <field name="active" eval="False"/>
+    </record></odoo>
+
+
+<!--<record id="mail_template_cash_report" model="mail.template">-->
+<!--<field name="name">Cash Report Email</field>-->
+<!--<field name="subject">Cash Report</field>-->
+<!--<field name="model_id" ref="hotel_report.model_cash_report_wizard"/>-->
+<!--<field name="email_from">alatoomlana@gmail.com</field>-->
+<!--<field name="email_to">{{object.sudo().partner_id.email}}</field>-->
+<!--<field name="report_template" ref="hotel_report.action_eee_hotel_report"/>-->
+<!--<field name="report_name">${{ (object.sudo().partner_id.email if object.sudo().partner_id.email else '') }}</field>-->
+<!-- <field name="body_html" type="html">-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <p style="margin: 0px; padding: 0px; font-size: 13px;">-->
+<!--                    السلام عليكم-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    تفضل برفقة تقرير الكاش المطلوب.-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    شكرا لكم-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--<field name="auto_delete" eval="True"/>-->
+<!--</record>-->
+<!--</odoo>-->
+
+
+
+
+<!--    <record id="mail_template_cash_report" model="mail.template">-->
+<!--        <field name="name">Cash Report Email</field>-->
+<!--        <field name="subject">تقرير الكاش</field>-->
+<!--        <field name="model_id" ref="hotel_report.model_cash_report_wizard"/>-->
+<!--        <field name="use_default_to" eval="True"/>-->
+<!--        <field name="email_from">alatoomlana@gmail.com</field>-->
+<!--        <field name="email_to">lanaabedalmajeed@gmail.com</field>-->
+<!--        <field name="lang">{{object.env.context.get("lang")}}</field>-->
+<!--        <field name="report_template" ref="hotel_report.action_eee_hotel_report"/> &lt;!&ndash; قالب تقرير الكاش &ndash;&gt;-->
+<!--        <field name="body_html" type="html">-->
+<!--            <div style="margin: 0px; padding: 0px;">-->
+<!--                <p style="margin: 0px; padding: 0px; font-size: 13px;">-->
+<!--                    السلام عليكم-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    تفضل برفقة تقرير الكاش المطلوب.-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    شكرا لكم-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </field>-->
+<!--        <field name="auto_delete" eval="True"/>-->
+<!--    </record>
+
+</odoo>-->

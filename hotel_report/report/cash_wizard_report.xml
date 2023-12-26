@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+        <record id="k_hotel_report_format" model="report.paperformat">
+            <field name="name">European A4 low margin</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">40</field>
+            <field name="margin_bottom">5</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">80</field>
+        </record>
+
+
+        <record id="action_eee_hotel_report" model="ir.actions.report">
+            <field name="name">cash hotel report</field>
+            <field name="model">cash.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hotel_report.k_hotel_report</field>
+            <field name="report_file">hotel_report.k_hotel_report</field>
+            <field name="paperformat_id" ref="hotel_report.k_hotel_report_format"/>
+        </record>
+
+        <template id="k_hotel_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="transform: rotate(270deg); transform-origin: top left;">
+                        <div class="oe_structure">
+                            <t>
+                                <h2 align="center" style="font-size: 18px;">Cash Report</h2>
+                            </t>
+                        </div>
+                        <div id="informations" class="row mt-4 mb-4">
+                            <div class="col-auto col-3 mw-100 mb-2">
+                                <p>
+                                    <strong>Current Time:</strong>
+                                    <t t-esc="time.strftime('%H:%M:%S')"/>
+                                </p>
+                                <p>
+                                    <strong>Date From:</strong>
+                                    <t>
+                                        <span t-esc="date_form"/>
+                                    </t>
+                                </p>
+                                <p>
+                                    <strong>Date To:</strong>
+                                    <t>
+                                        <span t-esc="date_to"/>
+                                    </t>
+                                </p>
+                            </div>
+                        </div>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr style="background-color:#eaeaea;">
+                                    <th>Date</th>
+                                    <th>Room</th>
+                                    <th>Cash Journal</th>
+                                    <th>Amount</th>
+                                    <th>Customer</th>
+                                    <th>Employee</th>
+                                </tr>
+                            </thead>
+                            <t t-set="total_cash_amount" t-value="0.00"/>
+                            <t t-foreach="cash_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['date']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['rooms_ref']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['journal']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float(line['Amount'] or 0.00)"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['customer']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Created by']"/>
+                                    </td>
+                                </tr>
+                                <t t-set="total_cash_amount"
+                                   t-value="total_cash_amount + float(line['Amount'] or 0.00)"/>
+                            </t>
+                            <t t-set="total_visa_amount" t-value="0.00"/>
+                            <t t-foreach="visa_lisst_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['date']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['rooms_ref']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['journal']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float(line['Amount'] or 0.00)"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['customer']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Created by']"/>
+                                    </td>
+                                </tr>
+                                <t t-set="total_visa_amount"
+                                   t-value="total_visa_amount + float(line['Amount'] or 0.00)"/>
+                            </t>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <strong>Total Cash Amount:</strong>
+                                </td>
+                                <td colspan="1">
+                                    <span t-esc="'{:,.3f}'.format(total_cash_amount)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <strong>Total Visa Amount:</strong>
+                                </td>
+                                <td colspan="1">
+                                    <span t-esc="'{:,.3f}'.format(total_visa_amount)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>
+                                    <strong>All Total Amount:</strong>
+                                </td>
+                                <td colspan="1">
+                                    <span t-esc="'{:,.3f}'.format(total_cash_amount + total_visa_amount)"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+

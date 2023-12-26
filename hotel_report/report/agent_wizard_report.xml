@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_agg_hotel_report" model="ir.actions.report">
+        <field name="name">agent hotel report</field>
+        <field name="model">agent.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hotel_report.knn_hotel_report</field>
+        <field name="report_file">hotel_report.knn_hotel_report</field>
+    </record>
+
+    <template id="knn_hotel_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" style="background:unset">
+                <div class="page">
+                    <div class="oe_structure">
+                        <t>
+                            <h2 align="center">
+                                Agent Report Balance
+                            </h2>
+                        </t>
+                    </div>
+                    <div id="informations" class="row mt-4 mb-4">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                            <p>
+                                <strong>Date From:</strong>
+                                <t>
+                                    <span t-esc="date_form"/>
+                                </t>
+                            </p>
+                            <strong>Date To:</strong>
+                            <t>
+                                <span t-esc="date_to"/>
+                            </t>
+
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Guest Name</th>
+                                    <th>Room</th>
+                                    <th>Agent</th>
+                                    <th>Nigths</th>
+                                    <th>Checkin</th>
+                                    <th>Checkout</th>
+                                    <th>Total</th>
+                                    <th>Empolyee</th>
+                                </tr>
+                            </thead>
+
+                            <t t-set="total_tot" t-value="0"/>
+
+                            <t t-foreach="lisstw_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <span t-esc="line['Guest Name']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Room Number']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['agent']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['nigh']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['chickin']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['chickout']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="float(line['Total'] or 0.00)"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="line['Created by']"/>
+                                    </td>
+
+                                </tr>
+                                <t t-set="total_tot" t-value="total_tot + line['Total']"/>
+                            </t>
+                        </table>
+                    </div>
+                    <div>
+                        <strong>Total:</strong>
+                        <span t-esc="total_tot"/>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
+
+

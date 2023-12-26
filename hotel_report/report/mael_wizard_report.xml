@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_mae_mael_report" model="ir.actions.report">
+        <field name="name">mael hotel report</field>
+        <field name="model">mael.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hotel_report.mae_housekeeping_report</field>
+        <field name="report_file">hotel_report.mae_housekeeping_report</field>
+    </record>
+
+    <template id="mae_housekeeping_report">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout" style="background:unset">
+                <div class="page">
+                   <div class="oe_structure">
+                        <t>
+                            <h2 align="center">
+                                Meal Plan
+                            </h2>
+                        </t>
+                    </div>
+                    <div id="informations" class="row mt-4 mb-4">
+                        <div class="col-auto col-3 mw-100 mb-2">
+                          <p>
+                             <strong>Date:</strong>
+                            <t>
+                                <span t-esc="date_from"/>
+                            </t>
+                          </p>
+                            <strong>Name:</strong>
+                            <t>
+                                <span t-esc="name_id"/>
+                            </t>
+
+                        </div>
+                    </div>
+                    <table class="table table-condensed">
+                           <tr>
+                               <th>Room number</th>
+                               <th>Checkin Date</th>
+                               <th>Checkout Date</th>
+                               <th>Meal type</th>
+                               <th>Adults</th>
+                               <th>children</th>
+                               <th>Nationality</th>
+
+                            </tr>
+                          <t t-foreach="lis_line_ids" t-as="line">
+                                <tr>
+                                    <td><span t-esc="line['Room number']"/></td>
+                                    <td><span t-esc="line['Checkin Date']"/></td>
+                                    <td><span t-esc="line['Checkout Date']"/></td>
+                                    <td><span t-esc="line['Meal type']"/></td>
+                                    <td><span t-esc="line['Adults']"/></td>
+                                    <td><span t-esc="line['children']"/></td>
+                                    <td><span t-esc="line['Nationality']"/></td>
+                                </tr>
+
+                            </t>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+
