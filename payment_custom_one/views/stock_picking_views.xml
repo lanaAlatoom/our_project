@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- View stock.picking form -->
+    <record id="view_account_payment_inherit_register_form" model="ir.ui.view">
+        <field name="name">account.payment.register.form</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='journal_id']" position="after">
+        <field name="name" invisible="1"/>
+        <field name="customer_bank" attrs="{'invisible': [('name', '!=', 'commitments')]}"/>
+        <field name="attachment_image" attrs="{'invisible': [('name', '!=', 'commitments')]}"/>
+        <field name="date_commitments" attrs="{'invisible': [('name', '!=', 'commitments')]}"/>
+        <field name="van_number" widget="many2many_tags" attrs="{'invisible': [('name', '!=', 'commitments')]}"/>
+        <field name="partner_waiver" attrs="{'invisible': [('name', '!=', 'commitments')]}"/>
+        </xpath>
+        <xpath expr="//footer/button[@name='action_create_payments']" position="before">
+            <button string="Create Payment" name="action_create_paymentsss" type="object" class="oe_highlight" data-hotkey="q" attrs="{'invisible': [('name', '!=', 'commitments')]}"/>
+        </xpath>
+       <xpath expr="//footer/button[@name='action_create_payments']" position="attributes">
+                <attribute name="attrs">{'invisible': [('name', '=', 'commitments')]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="view_bank_commitments_tree" model="ir.ui.view">
+        <field name="name">bank.commitments.tree</field>
+        <field name="model">bank.commitments</field>
+        <field name="arch" type="xml">
+            <tree string="Bank Commitments">
+                <field name="date_of_bank_commitments"/>
+                <field name="name_of_customer"/>
+                <field name="customer_bank"/>
+                <field name="amount"/>
+                 <field name="van_number"   widget="many2many_tags"  />
+                <field name="partner_waiver"  />
+                <field name="state"  widget="badge" decoration-info="state == 'deposit'" decoration-success="state == 'received'" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bank_commitments_form" model="ir.ui.view">
+    <field name="name">bank.commitments.form</field>
+    <field name="model">bank.commitments</field>
+    <field name="arch" type="xml">
+        <form string="Bank Commitments">
+            <header>
+                <field name="state" widget="statusbar" />
+                <button string="Done" type="object" name="action_received" class="oe_highlight" attrs="{'invisible': [('state', '=', 'received')]}"/>
+
+            </header>
+            <sheet>
+                <!-- Adding the div with title and fields -->
+                <div class="oe_title">
+                    <h1>
+                   <field name="account_move_id" />
+                                </h1>
+                </div>
+                    <group string="Commitments Bank Information">
+                        <field name="date_of_bank_commitments" string="Date" readonly="1"/>
+                        <field name="van_number" widget="many2many_tags" readonly="1"/>
+
+                        <field name="name_of_customer" readonly="1"/>
+                        <field name="customer_bank" readonly="1"/>
+                        <field name="amount" readonly="1"/>
+                        <field name="partner_waiver" readonly="1"/>
+                    </group>
+                    <group string="           ">
+
+                        <field name="deposit_bank_id" required="1"/>
+
+                    </group>
+
+            </sheet>
+            <div class="oe_chatter">
+
+                <field name="attachment_image" widget="attachment_image"/>
+
+                    </div>
+        </form>
+    </field>
+</record>
+
+    <record id="action_commitments_data" model="ir.actions.act_window">
+        <field name="name">Bank Commitments</field>
+        <field name="res_model">bank.commitments</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_commitments_data" name="Bank Commitments" parent="account.menu_finance" sequence="25"
+              action="action_commitments_data"/>
+
+
+
+</odoo>
+
