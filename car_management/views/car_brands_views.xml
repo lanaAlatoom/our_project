@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+    <record id="view_car_brands_tree" model="ir.ui.view">
+        <field name="name">car.brands.tree</field>
+        <field name="model">car.brands</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="model_id" widget="many2many_tags" />
+
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_car_brands_form" model="ir.ui.view">
+        <field name="name">car.brands.form</field>
+        <field name="model">car.brands</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" />
+                    <field name="model_id" widget="many2many_tags"/>
+
+
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu items under Contracts -->
+
+    <record id="action_car_brands" model="ir.actions.act_window">
+        <field name="name">Car Brands</field>
+        <field name="res_model">car.brands</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+     <menuitem id="menu_car_management" name="Car Management" parent="contacts.menu_contacts"/>
+    <menuitem id="menu_car_brands" name="Car Brands" parent="menu_car_management" action="action_car_brands"/>
+
+
+    <!-- helpdesk_ticket_views.xml -->
+
+
+
+    <record id="view_helpdesk_ticket_form" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <header>
+                    <button string="Confirm" name="action_create_sale_order"
+                             type="object"
+                            class="oe_highlight"/></header>
+<!--             <xpath expr="//form[1]/header[1]/button[@name='action_timer_start']" position="attributes">-->
+<!--                <attribute name="invisible">stage_id != 2</attribute>-->
+<!--              </xpath>-->
+<!--            <xpath expr="//form[1]/header[1]/button[@name='action_timer_stop']" position="attributes">-->
+<!--                <attribute name="invisible">stage_id != 2</attribute></xpath>-->
+
+<!--             <xpath expr="//form[1]/header[1]/button[@name='action_timer_pause']" position="attributes">-->
+<!--                 <attribute name="invisible">1</attribute></xpath>-->
+<!--              <xpath expr="//form[1]/header[1]/button[@name='action_timer_resume']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+
+<!--              </xpath>-->
+            <group>
+                <group string="Car Info" col="2">
+                    <field name="chevy_number_id"/>
+                     <label for="odometer"/>
+                                <div name="amount_div" class="o_row">
+                                    <field name="odometer"  nolabel="1"/>
+                                    <field name="odometer_unit"  nolabel="1"/>
+                                </div>
+
+                    <field name="car_brands_id" options="{'no_create': True}"/>
+                    <field name="car_model_one_ids" widget="many2many_tags" />
+                    <field name="car_model_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('id', 'in', car_model_one_ids)]"/>
+                    <field name="year_manufacture"/>
+                    <field name="engine_size_cylinder"/>
+                    <field name="engine_size_liter"/>
+                </group>
+
+
+
+
+
+               <group string="الفحوصات الأولية" col="2">
+                        <group col="3" class="o_row">
+                            <field name="engine_oil"/>
+                            <field name="power_oil"/>
+                            <field name="brake_oil"/>
+                        </group>
+                        <group col="4" class="o_row">
+                            <field name="air_filter"/>
+                            <field name="oil_filter"/>
+                            <field name="fuel_filter"/>
+                            <field name="water_filter"/>
+                        </group>
+                        <group col="3" class="o_row">
+                            <field name="cooling_water"/>
+                            <field name="wiper_water"/>
+                        </group>
+                        <group col="3" class="o_row">
+                            <field name="rear_brakes"/>
+                             <field name="front_brakes"/>
+
+                        </group>
+                   <group col="3" class="o_row">
+                            <field name="electrical_services"/>
+                            <field name="mechanical_services"/>
+                        </group>
+                        <group col="2" class="o_row">
+                            <field name="spark_plugs"/>
+                            <field name="ignition_system"/>
+                        </group>
+
+                    </group>
+
+
+
+            </group></field></record></odoo>

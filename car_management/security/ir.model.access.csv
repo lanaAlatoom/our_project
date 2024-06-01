@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_car_brands,access_car_brands,model_car_brands,,1,1,1,1
+access_car_models,access_car_models,model_car_models,,1,1,1,1
+access_chevy_number,access_chevy_number,model_chevy_number,,1,1,1,1
