@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<odoo>
+    <record id="view_car_brands_tree" model="ir.ui.view">
+        <field name="name">car.brands.tree</field>
+        <field name="model">car.brands</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="model_id" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_car_brands_form" model="ir.ui.view">
+        <field name="name">car.brands.form</field>
+        <field name="model">car.brands</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="model_id" widget="many2many_tags"/>
+
+
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu items under Contracts -->
+
+    <record id="action_car_technician" model="ir.actions.act_window">
+        <field name="name">Technician System</field>
+        <field name="res_model">technician.car</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('member_id', '=', context.get('active_id'))]</field>
+        <field name="context">{'default_member_id': context.get('active_id')}</field>
+
+    </record>
+
+    <record id="action_car_brands" model="ir.actions.act_window">
+        <field name="name">Car Brands</field>
+        <field name="res_model">car.brands</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- helpdesk_ticket_views.xml -->
+    <record id="view_car_brands_tree" model="ir.ui.view">
+        <field name="name">car.brands.tree</field>
+        <field name="model">car.brands</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="model_id" widget="many2many_tags"/>
+
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_car_brands_form" model="ir.ui.view">
+        <field name="name">car.brands.form</field>
+        <field name="model">car.brands</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="model_id" widget="many2many_tags"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_technician_car_form" model="ir.ui.view">
+        <field name="name">technician.car.form.inherit</field>
+        <field name="model">technician.car</field>
+        <field name="arch" type="xml">
+          <form>
+                <header>
+                    <button name="action_start_timesheet" type="object" string="Start" class="oe_highlight" invisible="state != &quot;served&quot;"/>
+                    <button name="action_end_timesheet" type="object" string="End" class="oe_highlight" invisible="state != &quot;served&quot;"/>
+                    <field name="state" widget="statusbar" options="{'clickable': True}"/>
+                </header>
+                <sheet>
+
+                    <group>
+
+                        <group string="Car Info" col="2">
+                            <field name="chevy_number_id"/>
+                            <field name="is_timesheet_visible" invisible="1"/>
+                            <label for="odometer"/>
+                            <div name="amount_div" class="o_row">
+                                <field name="odometer" nolabel="1"/>
+                                <field name="odometer_unit" nolabel="1"/>
+                            </div>
+                            <field name="car_brands_id" options="{'no_create': True}"/>
+                            <field name="is_so" invisible="1"/>
+                            <field name="car_model_one_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="car_model_ids" widget="many2many_tags" options="{'no_create': True}" domain="[('id', 'in', car_model_one_ids)]"/>
+                            <field name="year_manufacture_id"/>
+                            <field name="engine_size_cylinder_id"/>
+                            <field name="engine_size_liter_id"/>
+                            <field name="note"/>
+                        </group>
+
+
+                        <group string="Initial examinations" col="2">
+
+                            <field name="product_tag_lines" string="Moves Line" nolabel="1" colspan="2">
+                                <tree editable="bottom" delete="False" create="False">
+                                    <field name="name" decoration-success="boolean_field == True" decoration-warning="boolean_field == False" widget="badge"/>
+                                    <field name="boolean_field"/>
+                                    <field name="priority" widget="priority"/>
+
+
+                                    <field name="product_tags_ids" nolabel="1" invisible="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                                </tree>
+                            </field>
+                        </group>
+
+
+                    </group>
+                    <group string="Timesheets" col="2" invisible="state != 'served'">
+                        <field name="timesheet_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom" delete="False" create="False" view_id="view_account_analytic_line_tree"/>
+                        </field>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_technician_car_system_tree" model="ir.ui.view">
+        <field name="name">technician.car.system.tree</field>
+        <field name="model">technician.car</field>
+        <field name="arch" type="xml">
+            <tree string="Technician Car System">
+                <field name="id" string="sequence"/>
+                <field name="create_date" string="Date"/>
+                <field name="name" string="Technician Name"/>
+<!--                 <field name="stage_id"/>
+ -->
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

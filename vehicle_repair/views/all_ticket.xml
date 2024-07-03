@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+
+    <record id="view_technician_car_tree" model="ir.ui.view">
+        <field name="name">technician.car.tree</field>
+        <field name="model">technician.car</field>
+        <field name="arch" type="xml">
+            <tree string="Technician Car System">
+                <field name="name"/>
+                <field name="id"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_technician_car_search" model="ir.ui.view">
+        <field name="name">technician.car.search</field>
+        <field name="model">technician.car</field>
+        <field name="arch" type="xml">
+            <search string="Filters">
+                    <field name="member_id"/>
+                    <field name="create_date" />
+                    <separator/>
+
+                    <group expand="0" string="Group By">
+
+                        <filter string="User" name="user" domain="[]" context="{'group_by':'member_id'}"/>
+                        <filter name="filter_today" string="Created Today"
+                            domain="[('create_date', '>=', (context_today().strftime('%Y-%m-%d 00:00:00'))), ('create_date', '&lt;=', (context_today().strftime('%Y-%m-%d 23:59:59')))]"/>                    </group>
+                </search>
+
+        </field>
+    </record>
+
+
+
+
+    <record id="technician_user_model_action" model="ir.actions.act_window">
+        <field name="name">Technician Users</field>
+        <field name="res_model">technician.member</field>
+        <field name="view_mode">kanban,form</field>
+
+    </record>
+
+    <record id="action_car_models" model="ir.actions.act_window">
+        <field name="name">Car Models</field>
+        <field name="res_model">car.models</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="action_chevy_number" model="ir.actions.act_window">
+        <field name="name">Chevy Numbers</field>
+        <field name="res_model">chevy.number</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+     <record id="action_all_tickets_one" model="ir.actions.act_window">
+        <field name="name">All Tickets</field>
+        <field name="res_model">technician.car</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_today':1, 'group_by': 'member_id'}</field>
+        <field name="search_view_id" ref="view_technician_car_search"/>
+    </record>
+
+      <record id="action_year_manufacture" model="ir.actions.act_window">
+        <field name="name">Year of Manufacture</field>
+        <field name="res_model">year.manufacture</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first year of manufacture
+            </p>
+        </field>
+    </record>
+
+    <record id="action_engine_size_cylinder" model="ir.actions.act_window">
+        <field name="name">Engine Size (Cylinder)</field>
+        <field name="res_model">engine.size.cylinder</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first engine size (cylinder)
+            </p>
+        </field></record>
+
+
+    <record id="action_engine_size_liter" model="ir.actions.act_window">
+        <field name="name">Engine Size (Liter)</field>
+        <field name="res_model">engine.size.liter</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first engine size (liter)
+            </p>
+        </field>
+    </record>
+
+
+
+    <menuitem id="menu_car_techninc_menu" name="Vehicle Repair" action="technician_user_model_action"
+              web_icon="vehicle_repair,static/description/icon.png"/>
+
+    <menuitem id="menu_all_tickets" sequence="5" name=" Tickets" parent="menu_car_techninc_menu"/>
+    <menuitem id="menu_all_tickets_user" name="All Tickets" parent="menu_all_tickets" action="action_all_tickets_one"/>
+
+    <menuitem id="menu_car_management_configuration"  sequence="20" name="Configuration" parent="menu_car_techninc_menu"/>
+    <menuitem id="menu_car_management" name="Car Repair Configuration" parent="menu_car_management_configuration"/>
+    <menuitem id="menu_car_brands" name="Car Brands" parent="menu_car_management" action="action_car_brands"/>
+    <menuitem id="menu_car_models" name="Car Models" parent="menu_car_management" action="action_car_models"/>
+    <menuitem id="menu_size_cylinder" name="Car engine size (cylinder)" parent="menu_car_management" action="action_engine_size_cylinder"/>
+    <menuitem id="menu_size_liter" name="Car engine size (liter)" parent="menu_car_management" action="action_engine_size_liter"/>
+    <menuitem id="menu_year_manufacture" name="Car Year" parent="menu_car_management" action="action_year_manufacture"/>
+    <menuitem id="menu_chevy_number" name="Chevy Numbers" parent="menu_car_management" action="action_chevy_number"/>
+
+    <menuitem id="menu_car_management_contact" name="Car Repair Configuration" parent="contacts.menu_contacts"/>
+<!--    <menuitem id="menu_car_brands_contact" name="Car Brands" parent="menu_car_management_contact" action="action_car_brands"/>-->
+<!--    <menuitem id="menu_car_models_contact" name="Car Models" parent="menu_car_management_contact" action="action_car_models"/>-->
+    <menuitem id="menu_chevy_number_contact" name="Chevy Numbers" parent="menu_car_management_contact" action="action_chevy_number"/>
+
+
+
+
+
+
+
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_chevy_number_tree" model="ir.ui.view">
+        <field name="name">chevy.number.tree</field>
+        <field name="model">chevy.number</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="car_brands_id"/>
+                <field name="car_model_ids" widget="many2many_tags"/>
+                <field name="year_manufacture_id" />
+                <field name="engine_size_cylinder_id" />
+                <field name="engine_size_liter_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_chevy_number_form" model="ir.ui.view">
+        <field name="name">chevy.number.form</field>
+        <field name="model">chevy.number</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                <field name="car_brands_id" invisible="1"/>
+                <field name="car_model_ids" widget="many2many_tags" invisible="1"/>
+                     <field name="year_manufacture_id" invisible="1" />
+                <field name="engine_size_cylinder_id" invisible="1" />
+                <field name="engine_size_liter_id"  invisible="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+
+
+
+
+</odoo>

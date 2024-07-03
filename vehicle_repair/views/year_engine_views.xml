@@ -1,0 +1,83 @@
+<odoo>
+    <record id="view_year_manufacture_form" model="ir.ui.view">
+        <field name="name">year.manufacture.form</field>
+        <field name="model">year.manufacture</field>
+        <field name="arch" type="xml">
+            <form string="Year of Manufacture">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_year_manufacture_tree" model="ir.ui.view">
+        <field name="name">year.manufacture.tree</field>
+        <field name="model">year.manufacture</field>
+        <field name="arch" type="xml">
+            <tree string="Year of Manufacture">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+       <record id="view_engine_size_cylinder_form" model="ir.ui.view">
+        <field name="name">engine.size.cylinder.form</field>
+        <field name="model">engine.size.cylinder</field>
+        <field name="arch" type="xml">
+            <form string="Engine Size (Cylinder)">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_engine_size_cylinder_tree" model="ir.ui.view">
+        <field name="name">engine.size.cylinder.tree</field>
+        <field name="model">engine.size.cylinder</field>
+        <field name="arch" type="xml">
+            <tree string="Engine Size (Cylinder)">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+     <record id="view_engine_size_liter_form" model="ir.ui.view">
+        <field name="name">engine.size.liter.form</field>
+        <field name="model">engine.size.liter</field>
+        <field name="arch" type="xml">
+            <form string="Engine Size (Liter)">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_engine_size_liter_tree" model="ir.ui.view">
+        <field name="name">engine.size.liter.tree</field>
+        <field name="model">engine.size.liter</field>
+        <field name="arch" type="xml">
+            <tree string="Engine Size (Liter)">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+
+
+
+
+</odoo>

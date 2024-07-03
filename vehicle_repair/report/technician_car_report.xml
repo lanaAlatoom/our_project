@@ -1,0 +1,61 @@
+<odoo>
+    <template id="report_technician_car">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+                    <h2>Vehicle Repair Report</h2>
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Car Info</strong>
+                            <p>Chevy Number: <t t-esc="doc.chevy_number_id.name"/></p>
+                            <p>Odometer: <t t-esc="doc.odometer"/> <t t-esc="doc.odometer_unit"/></p>
+                            <p>Car Brand: <t t-esc="doc.car_brands_id.name"/></p>
+                            <p>Car Models:
+                                <!-- Ensure proper looping through car_model_ids -->
+                                <t t-foreach="doc.car_model_ids" t-as="model">
+                                    <span><t t-esc="model.model_name"/></span>
+                                </t>
+                            </p>
+
+                            <p>Year of Manufacture: <t t-esc="doc.year_manufacture"/></p>
+                            <p>Engine Size (Cylinder): <t t-esc="doc.engine_size_cylinder"/></p>
+                            <p>Engine Size (Liter): <t t-esc="doc.engine_size_liter"/></p>
+                        </div>
+                        <div class="col-6">
+                            <strong>Initial Examinations</strong>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>name</th>
+                                        <th>problem?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.product_tag_lines" t-as="line">
+                                        <tr>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="line.boolean_field"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            </t></t>
+    </template>
+
+
+    <report
+        id="action_report_technician_car"
+        model="technician.car"
+        string="Technician Car Report"
+        report_type="qweb-pdf"
+        name="vehicle_repair.report_technician_car"
+        file="vehicle_repair.report_technician_car"
+        print_report_name="(object.name or 'Technician Car Report')"
+    />
+</odoo>

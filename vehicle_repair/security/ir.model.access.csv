@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_year_manufacture,access_year_manufacture,model_year_manufacture,base.group_user,1,1,1,1
+access_engine_size_cylinder,access_engine_size_cylinder,model_engine_size_cylinder,base.group_user,1,1,1,1
+access_engine_size_liter,access_engine_size_liter,model_engine_size_liter,base.group_user,1,1,1,1
+access_car_brands,access_car_brands,model_car_brands,base.group_user,1,1,1,1
+access_car_models,access_car_models,model_car_models,base.group_user,1,1,1,1
+access_chevy_number,access_chevy_number,model_chevy_number,base.group_user,1,1,1,1
+access_sale_order_from_helpdesk,access_sale_order_from_helpdesk,model_sale_order_from_helpdesk,base.group_user,1,1,1,1
+access_technician_tag,access_technician_tag,model_technician_tag,base.group_user,1,1,1,1
+access_technician_car,access_technician_car,model_technician_car,base.group_user,1,1,1,1
+access_technician_member,access_technician_member,model_technician_member,base.group_user,1,1,1,1
+
+
