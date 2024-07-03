@@ -1,0 +1,29 @@
+<odoo>
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//thead/tr/th[@name='th_description']" position="after">
+            <!-- Adding new columns to the header -->
+            <th class="text-start">Fabric/Leather</th>
+            <th class="text-start">Finish</th>
+            <th class="text-start">Dimensions (cm)</th>
+        </xpath>
+
+<!--        <xpath expr="//td[@name='td_name']" position="after">-->
+<!--            &lt;!&ndash; Adding new columns to the body &ndash;&gt;-->
+<!--            <td t-foreach="line.product_id.attribute_value_ids" t-as="attr_value">-->
+<!--                <span t-if="attr_value.attribute_id.name == 'Fabric/Leather'">-->
+<!--                    <t t-esc="attr_value.name"/>-->
+<!--                </span>-->
+<!--            </td>-->
+<!--            <td t-foreach="line.product_id.attribute_value_ids" t-as="attr_value">-->
+<!--                <span t-if="attr_value.attribute_id.name == 'Finish'">-->
+<!--                    <t t-esc="attr_value.name"/>-->
+<!--                </span>-->
+<!--            </td>-->
+<!--            <td t-foreach="line.product_id.attribute_value_ids" t-as="attr_value">-->
+<!--                <span t-if="attr_value.attribute_id.name == 'Dimensions (cm)'">-->
+<!--                    <t t-esc="attr_value.name"/>-->
+<!--                </span>-->
+<!--            </td>-->
+<!--        </xpath>-->
+    </template>
+</odoo>
