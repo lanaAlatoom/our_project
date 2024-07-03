@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_logistic_providers,access_logistic_providers,model_logistic_providers,base.group_user,1,1,1,1
+
+
