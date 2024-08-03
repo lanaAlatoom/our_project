@@ -201,10 +201,9 @@ class TechnicianTicket(models.Model):
     #     return res
 
 
-#########################new work 31/7/2024 ####################
+#########################new work 31/7/2024####################
 
-#########################new work 1/8/2024 ####################
-##product service 
+
     @api.model
     def default_get(self, fields):
         res = super(TechnicianTicket, self).default_get(fields)
@@ -213,7 +212,7 @@ class TechnicianTicket(models.Model):
         for product_tag in product_tags:
             technician_tags.append((0, 0, {
                 'product_tags_ids': product_tag.id,
-                'name': product_tag.category_two_id.name,
+                'name': product_tag.name,
             }))
         res.update({
             'product_tag_lines': technician_tags
@@ -253,7 +252,6 @@ class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
     ticket_id = fields.Many2one('technician.car', string="Technician Ticket")
-
 
 
 
