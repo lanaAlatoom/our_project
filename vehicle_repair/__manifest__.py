@@ -3,16 +3,17 @@
 
     'name': 'Vehicle Repair',
     'version': '17.0',
-    'summary': ' Vehicle Repair and Manage car brands, models, and chevy numbers',
+    'summary': ' Vehicle Repair and Manage car brands, models, and Chassis numbers',
     'author': "Eng Lana Alatoom",
     'website': "https://www.midaad.com",
 
-    'depends': ['base', 'contacts','sale','crm'],
+    'depends': ['base', 'contacts','sale','product','crm'],
     'data': [
         'views/car_brands_views.xml',
         'views/all_ticket.xml',
         'views/car_models_views.xml',
         'views/sale_order_inherit.xml',
+        'views/contact.xml',
         'views/product_category.xml',
         'views/chevy_number_views.xml',
         'security/ir.model.access.csv',

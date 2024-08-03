@@ -1,7 +1,8 @@
-
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError, UserError
 from datetime import datetime
+import re
+
 
 
 class TechnicianTicket(models.Model):
@@ -13,6 +14,8 @@ class TechnicianTicket(models.Model):
 
     timesheet_ids = fields.One2many('account.analytic.line', 'ticket_id', string="Timesheets")
     is_timesheet_visible = fields.Boolean(string='Show Timesheet Button', related='member_id.show_timesheet_button')
+    is_start = fields.Boolean(string="Is Starting", default=False)
+    is_ending = fields.Boolean(string="Is Ending", default=True)
 
     note =fields.Text(string='Note')
     state = fields.Selection([
@@ -24,22 +27,29 @@ class TechnicianTicket(models.Model):
     is_so = fields.Boolean(string='Is confirm to Sale order')
     member_id = fields.Many2one('technician.member', string='Member')
     name = fields.Char(related="member_id.name", string='Member')
-    chevy_number_id = fields.Many2one('chevy.number', string='Chevy Number', required=True)
+    chevy_number_id = fields.Many2one('chevy.number', string='Chassis Number', required=True)
+    _sql_constraints = [
+        ('name_ref_uniq', 'unique(name)', 'The chassis number must be unique!')
+    ]
 
-
-
+    @api.onchange('chevy_number_id')
+    def _onchange_chevy_number_id(self):
+        if self.chevy_number_id:
+            self.chevy_number_id.name = self.chevy_number_id.name.upper()
 
     @api.constrains('chevy_number_id')
     def _check_chevy_number(self):
+        arabic_letters_pattern = re.compile(r'[\u0600-\u06FF]')
         for record in self:
-            if not record.chevy_number_id.name:
-                raise ValidationError("Chevy Number cannot be empty.")
             if len(record.chevy_number_id.name) != 17:
-                raise ValidationError("Chevy Number must be exactly 17 characters long.")
-            if not all(char.isdigit() or 'A' <= char <= 'Z' for char in record.chevy_number_id.name):
-                raise ValidationError("Chevy Number must be in uppercase English letters and digits.")
+                raise ValidationError("Chassis Number must be exactly 17 characters long.")
+
             if not (record.chevy_number_id.name.isdigit() or record.chevy_number_id.name.isalnum()):
-                raise ValidationError("Chevy Number must be 17 continuous numbers or 17 uppercase characters.")
+                raise ValidationError("Chassis Number must be 17 continuous numbers or 17 uppercase characters.")
+
+            if arabic_letters_pattern.search(record.chevy_number_id.name):
+                raise ValidationError("Chassis Number must not contain Arabic letters.")
+
 
     car_brands_id = fields.Many2one('car.brands', string='Car Brand', required=True)
     car_model_ids = fields.Many2many('car.models', string='Car Models', required=True)
@@ -58,6 +68,8 @@ class TechnicianTicket(models.Model):
     is_timesheet_visible = fields.Boolean(string='Show Timesheet Button', related='member_id.show_timesheet_button')
 
     def action_start_timesheet(self):
+        self.is_start = True
+        self.is_ending = False
         self.ensure_one()
         project = self.env['project.project'].create({
             'name': self.name,
@@ -84,6 +96,8 @@ class TechnicianTicket(models.Model):
 
     def action_end_timesheet(self):
         self.ensure_one()
+        self.is_start = False
+        self.is_ending = True
         timesheet = self.env['account.analytic.line'].search([('ticket_id', '=', self.id)], order='create_date desc',
                                                              limit=1)
         if timesheet:
@@ -93,8 +107,6 @@ class TechnicianTicket(models.Model):
                 'unit_amount': (fields.Datetime.now() - timesheet.create_date).total_seconds() / 3600.0,
                 'user_id': self.env.user.id,
             })
-
-
 
 
 
@@ -120,7 +132,7 @@ class TechnicianTicket(models.Model):
 
         products = []
         for tag_line in ticket.product_tag_lines:
-            if tag_line.boolean_field:
+            if tag_line.priority in ('normal', 'high'):
                 for product_tag in tag_line.product_tags_ids:
                     product = self.env['product.product'].search([('product_tag_ids', '=', product_tag.id)], limit=1)
                     if product:
@@ -128,13 +140,13 @@ class TechnicianTicket(models.Model):
 
         if products:
             ticket.is_so = True
-            last_sale_order = self.env['sale.order'].search([('chevy_number', '=', ticket.chevy_number_id.name)],
+            last_sale_order = self.env['sale.order'].search([('chevy_number_id', '=', ticket.chevy_number_id.id)],
                                                             order='id desc', limit=1)
             partner_id = last_sale_order.partner_id.id if last_sale_order else ticket.partner_id.id
 
             sale_order = self.env['sale.order'].create({
                 'partner_id': partner_id,
-                'chevy_number': ticket.chevy_number_id.name,
+                'chevy_number_id': ticket.chevy_number_id.id,
                 'origin': ticket.name,
             })
 
@@ -172,22 +184,41 @@ class TechnicianTicket(models.Model):
 
 
 
+    # @api.model
+    # def default_get(self, fields):
+    #     res = super(TechnicianTicket, self).default_get(fields)
+    #     product_tags = self.env['product.tag'].search([])
+    #     technician_tags = []
+    #     for product_tag in product_tags:
+    #         technician_tags.append((0, 0, {
+    #             'product_tags_ids': [(6, 0, [product_tag.id])],
+    #             'name': product_tag.name,
+    #             'boolean_field': False,  # Adjust this as needed
+    #         }))
+    #     res.update({
+    #         'product_tag_lines': technician_tags
+    #     })
+    #     return res
+
+
+#########################new work 31/7/2024 ####################
+
+#########################new work 1/8/2024 ####################
+##product service 
     @api.model
     def default_get(self, fields):
         res = super(TechnicianTicket, self).default_get(fields)
-        product_tags = self.env['product.tag'].search([])
+        product_tags = self.env['product.template'].search([('category_two_id.is_service', '=', True)])
         technician_tags = []
         for product_tag in product_tags:
             technician_tags.append((0, 0, {
-                'product_tags_ids': [(6, 0, [product_tag.id])],
-                'name': product_tag.name,
-                'boolean_field': False,  # Adjust this as needed
+                'product_tags_ids': product_tag.id,
+                'name': product_tag.category_two_id.name,
             }))
         res.update({
             'product_tag_lines': technician_tags
         })
         return res
-
 
 #########################new work 25/5
 
@@ -203,14 +234,17 @@ class TechnicianTag(models.Model):
     _description = 'Technician Tag'
 
     ticket_id = fields.Many2one('technician.car', string="Ticket", ondelete='cascade')
-    product_tags_ids = fields.Many2many('product.tag', string="Product Tags")
+    product_tags_ids = fields.Many2one('product.tag', string="Product Tags")
     boolean_field = fields.Boolean(string="problem?")
     name = fields.Char(string="examination" )
+    note = fields.Text(string='Note')
+
     priority = fields.Selection([
-        ('low', 'Low'),
+        ('_', 'Low'),
         ('normal', 'Normal'),
-        ('hight', 'High'),
-    ], string='Priority', default='low')
+        ('high', 'High'),
+    ], string='problem?')
+
 
 
 
@@ -226,15 +260,6 @@ class AccountAnalyticLine(models.Model):
 
 
 
-#
-# class TechnicianStage(models.Model):
-#     _name = 'technician.stage'
-#     _description = 'Technician Stage'
-#
-#     name = fields.Char(string='Stage Name', required=True)
-#
-#
-#
 
 
 

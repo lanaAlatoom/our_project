@@ -53,7 +53,7 @@
 
 
     <record id="action_chevy_number" model="ir.actions.act_window">
-        <field name="name">Chevy Numbers</field>
+        <field name="name">Chassis Numbers</field>
         <field name="res_model">chevy.number</field>
         <field name="view_mode">tree,form</field>
     </record>
@@ -114,12 +114,12 @@
     <menuitem id="menu_size_cylinder" name="Car engine size (cylinder)" parent="menu_car_management" action="action_engine_size_cylinder"/>
     <menuitem id="menu_size_liter" name="Car engine size (liter)" parent="menu_car_management" action="action_engine_size_liter"/>
     <menuitem id="menu_year_manufacture" name="Car Year" parent="menu_car_management" action="action_year_manufacture"/>
-    <menuitem id="menu_chevy_number" name="Chevy Numbers" parent="menu_car_management" action="action_chevy_number"/>
+    <menuitem id="menu_chevy_number" name="Chassis Numbers" parent="menu_car_management" action="action_chevy_number"/>
 
     <menuitem id="menu_car_management_contact" name="Car Repair Configuration" parent="contacts.menu_contacts"/>
 <!--    <menuitem id="menu_car_brands_contact" name="Car Brands" parent="menu_car_management_contact" action="action_car_brands"/>-->
 <!--    <menuitem id="menu_car_models_contact" name="Car Models" parent="menu_car_management_contact" action="action_car_models"/>-->
-    <menuitem id="menu_chevy_number_contact" name="Chevy Numbers" parent="menu_car_management_contact" action="action_chevy_number"/>
+    <menuitem id="menu_chevy_number_contact" name="Chassis Numbers" parent="menu_car_management_contact" action="action_chevy_number"/>
 
 
 

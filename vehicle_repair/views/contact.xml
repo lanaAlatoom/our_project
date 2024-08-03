@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_res_partners_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.chevy.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Chevy Numbers">
+                        <field name="chevy_number_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="car_brands_id"/>
+                                <field name="car_model_ids" widget="many2many_tags"/>
+                                <field name="year_manufacture_id"/>
+                                <field name="engine_size_cylinder_id"/>
+                                <field name="engine_size_liter_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

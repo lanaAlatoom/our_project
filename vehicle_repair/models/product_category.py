@@ -15,7 +15,16 @@ class ProductCategoryInherit(models.Model):
 
 
 class ProductTemplate(models.Model):
-    _inherit = "product.template"
+    _inherit = 'product.template'
+
+    brand_id = fields.Many2one('car.brands', string='Car Brand')
+    model_id = fields.Many2one('car.models', string='Car Model')
+    engine_cylinder_id = fields.Many2one('engine.size.cylinder', string='Car Engine Size Cylinder')
+    engine_cylinder_size_id = fields.Many2one('engine.size.liter', string='Car Engine Size Liter')
+    car_year_id = fields.Many2one('year.manufacture', string='Car Year')
+
+class ProductTemplate(models.Model):
+    _inherit = "product.product"
 
     default_code = fields.Char(compute="compute_default_code", store=True, readonly=True)
 

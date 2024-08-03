@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-6">
                             <strong>Car Info</strong>
-                            <p>Chevy Number: <t t-esc="doc.chevy_number_id.name"/></p>
+                            <p>Chassis Number: <t t-esc="doc.chevy_number_id.name"/></p>
                             <p>Odometer: <t t-esc="doc.odometer"/> <t t-esc="doc.odometer_unit"/></p>
                             <p>Car Brand: <t t-esc="doc.car_brands_id.name"/></p>
                             <p>Car Models:
@@ -19,9 +19,9 @@
                                 </t>
                             </p>
 
-                            <p>Year of Manufacture: <t t-esc="doc.year_manufacture"/></p>
-                            <p>Engine Size (Cylinder): <t t-esc="doc.engine_size_cylinder"/></p>
-                            <p>Engine Size (Liter): <t t-esc="doc.engine_size_liter"/></p>
+                            <p>Year of Manufacture: <t t-esc="doc.year_manufacture_id.name"/></p>
+                            <p>Engine Size (Cylinder): <t t-esc="doc.engine_size_cylinder_id.name"/></p>
+                            <p>Engine Size (Liter): <t t-esc="doc.engine_size_liter_id.name"/></p>
                         </div>
                         <div class="col-6">
                             <strong>Initial Examinations</strong>
@@ -30,13 +30,17 @@
                                     <tr>
                                         <th>name</th>
                                         <th>problem?</th>
+                                         <th>note</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <t t-foreach="doc.product_tag_lines" t-as="line">
                                         <tr>
                                             <td><t t-esc="line.name"/></td>
-                                            <td><t t-esc="line.boolean_field"/></td>
+                                            <td><t t-esc="line.priority"/></td>
+                                             <td><t t-esc="line.note"/></td>
+
                                         </tr>
                                     </t>
                                 </tbody>

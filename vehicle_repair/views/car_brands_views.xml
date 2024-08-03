@@ -81,16 +81,18 @@
         <field name="arch" type="xml">
           <form>
                 <header>
-                    <button name="action_start_timesheet" type="object" string="Start" class="oe_highlight" invisible="state != &quot;served&quot;"/>
-                    <button name="action_end_timesheet" type="object" string="End" class="oe_highlight" invisible="state != &quot;served&quot;"/>
+                    <button name="action_start_timesheet" type="object" string="Start" class="oe_highlight" invisible="state != 'served' or is_start"/>
+                <button name="action_end_timesheet" type="object" string="End" class="oe_highlight" invisible="state != 'served' or is_ending"/>
                     <field name="state" widget="statusbar" options="{'clickable': True}"/>
+                    <field name="is_start" invisible="1"/>
+                    <field name="is_ending" invisible="1"/>
                 </header>
                 <sheet>
 
                     <group>
 
                         <group string="Car Info" col="2">
-                            <field name="chevy_number_id"/>
+                            <field name="chevy_number_id"  />
                             <field name="is_timesheet_visible" invisible="1"/>
                             <label for="odometer"/>
                             <div name="amount_div" class="o_row">
@@ -112,9 +114,11 @@
 
                             <field name="product_tag_lines" string="Moves Line" nolabel="1" colspan="2">
                                 <tree editable="bottom" delete="False" create="False">
-                                    <field name="name" decoration-success="boolean_field == True" decoration-warning="boolean_field == False" widget="badge"/>
-                                    <field name="boolean_field"/>
+                                    <field name="name"  decoration-warning="priority == 'normal'" decoration-danger="priority == 'high'" widget="badge" />
+<!--                                    <field name="boolean_field"/>-->
                                     <field name="priority" widget="priority"/>
+                                     <field name="note"/>
+
 
 
                                     <field name="product_tags_ids" nolabel="1" invisible="1" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>

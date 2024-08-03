@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 06:57+0000\n"
-"PO-Revision-Date: 2024-07-01 06:57+0000\n"
+"POT-Creation-Date: 2024-07-08 10:44+0000\n"
+"PO-Revision-Date: 2024-07-08 10:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,66 +19,6 @@ msgstr ""
 #: model:ir.ui.menu,name:vehicle_repair.menu_all_tickets
 msgid " Tickets"
 msgstr "التذاكر"
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_cylinder__1
-msgid "1 cc"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_liter__1_0
-msgid "1.0 L"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_liter__1_3
-msgid "1.3 L"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_liter__1_5
-msgid "1.5 L"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_cylinder__2
-msgid "2 cc"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_liter__2_0
-msgid "2.0 L"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_liter__2_5
-msgid "2.5 L"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_cylinder__3
-msgid "3 cc"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_liter__3_0
-msgid "3.0 L"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_cylinder__4
-msgid "4 cc"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_cylinder__5
-msgid "5 cc"
-msgstr ""
-
-#. module: vehicle_repair
-#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__engine_size_cylinder__6
-msgid "6 cc"
-msgstr ""
 
 #. module: vehicle_repair
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.test_model_view_kanban
@@ -109,7 +49,7 @@ msgstr "جميع التذاكر"
 #. module: vehicle_repair
 #: model:ir.model,name:vehicle_repair.model_account_analytic_line
 msgid "Analytic Line"
-msgstr "البند التحليلي"
+msgstr "الحساب التحليلي"
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_brands__name
@@ -161,29 +101,59 @@ msgid "Car Repair Configuration"
 msgstr "إعدادات معلومات السيارات "
 
 #. module: vehicle_repair
+#: model:ir.ui.menu,name:vehicle_repair.menu_year_manufacture
+msgid "Car Year"
+msgstr "سنة صنع السيارة"
+
+#. module: vehicle_repair
+#: model:ir.ui.menu,name:vehicle_repair.menu_size_cylinder
+msgid "Car engine size (cylinder)"
+msgstr "حجم محرك السيارة (الاسطوانة)"
+
+#. module: vehicle_repair
+#: model:ir.ui.menu,name:vehicle_repair.menu_size_liter
+msgid "Car engine size (liter)"
+msgstr "حجم محرك السيارة (اللتر)"
+
+#. module: vehicle_repair
 #: model:ir.model,name:vehicle_repair.model_chevy_number
 #: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__name
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order__chevy_number
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__chevy_number_id
-msgid "Chevy Number"
+msgid "Chassis Number"
 msgstr "رقم الشاصي"
 
 #. module: vehicle_repair
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.report_technician_car
-msgid "Chevy Number:"
+msgid "Chassis Number:"
 msgstr "رقم الشاصي"
 
 #. module: vehicle_repair
 #: model:ir.actions.act_window,name:vehicle_repair.action_chevy_number
 #: model:ir.ui.menu,name:vehicle_repair.menu_chevy_number
 #: model:ir.ui.menu,name:vehicle_repair.menu_chevy_number_contact
-msgid "Chevy Numbers"
+msgid "Chassis Numbers"
 msgstr "رقم الشاصي"
 
 #. module: vehicle_repair
 #: model:ir.ui.menu,name:vehicle_repair.menu_car_management_configuration
 msgid "Configuration"
 msgstr "إعدادات"
+
+#. module: vehicle_repair
+#: model_terms:ir.actions.act_window,help:vehicle_repair.action_engine_size_cylinder
+msgid "Create the first engine size (cylinder)"
+msgstr ""
+
+#. module: vehicle_repair
+#: model_terms:ir.actions.act_window,help:vehicle_repair.action_engine_size_liter
+msgid "Create the first engine size (liter)"
+msgstr ""
+
+#. module: vehicle_repair
+#: model_terms:ir.actions.act_window,help:vehicle_repair.action_year_manufacture
+msgid "Create the first year of manufacture"
+msgstr "انشأ اول سنة صنع"
 
 #. module: vehicle_repair
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.view_technician_car_search
@@ -194,10 +164,13 @@ msgstr "تم إنشاؤها اليوم"
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_brands__create_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_models__create_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__create_uid
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_cylinder__create_uid
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_liter__create_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__create_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__create_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__create_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__create_uid
+#: model:ir.model.fields,field_description:vehicle_repair.field_year_manufacture__create_uid
 msgid "Created by"
 msgstr "انشأ من قبل"
 
@@ -205,10 +178,13 @@ msgstr "انشأ من قبل"
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_brands__create_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_models__create_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__create_date
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_cylinder__create_date
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_liter__create_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__create_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__create_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__create_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__create_date
+#: model:ir.model.fields,field_description:vehicle_repair.field_year_manufacture__create_date
 msgid "Created on"
 msgstr "التاريخ"
 
@@ -231,10 +207,13 @@ msgstr "عنوان التوصيل "
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_brands__display_name
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_models__display_name
 #: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__display_name
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_cylinder__display_name
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_liter__display_name
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__display_name
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__display_name
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__display_name
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__display_name
+#: model:ir.model.fields,field_description:vehicle_repair.field_year_manufacture__display_name
 msgid "Display Name"
 msgstr "الاسم"
 
@@ -249,21 +228,27 @@ msgid "End"
 msgstr "انهاء"
 
 #. module: vehicle_repair
-#: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__engine_size_cylinder
-#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__engine_size_cylinder
+#: model:ir.actions.act_window,name:vehicle_repair.action_engine_size_cylinder
+#: model:ir.model,name:vehicle_repair.model_engine_size_cylinder
+#: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__engine_size_cylinder_id
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_cylinder__name
+#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__engine_size_cylinder_id
 msgid "Engine Size (Cylinder)"
-msgstr "(سلندر)حجم المحرك "
+msgstr "حجم المحرك (اسطوانة)"
 
 #. module: vehicle_repair
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.report_technician_car
 msgid "Engine Size (Cylinder):"
-msgstr "(سلندر)حجم المحرك "
+msgstr "(سلندر)حجم المحرك"
 
 #. module: vehicle_repair
-#: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__engine_size_liter
-#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__engine_size_liter
+#: model:ir.actions.act_window,name:vehicle_repair.action_engine_size_liter
+#: model:ir.model,name:vehicle_repair.model_engine_size_liter
+#: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__engine_size_liter_id
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_liter__name
+#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__engine_size_liter_id
 msgid "Engine Size (Liter)"
-msgstr "(اللتر)حجم المحرك"
+msgstr "حجم المحرك (اللتر)"
 
 #. module: vehicle_repair
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.report_technician_car
@@ -286,18 +271,21 @@ msgid "Group By"
 msgstr ""
 
 #. module: vehicle_repair
-#: model_terms:ir.ui.view,arch_db:vehicle_repair.view_order_form_inherit_helpdesk
-msgid "Helpdesk Orders"
-msgstr ""
+#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_tag__priority__hight
+msgid "High"
+msgstr "متأزم"
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_brands__id
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_models__id
 #: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__id
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_cylinder__id
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_liter__id
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__id
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__id
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__id
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__id
+#: model:ir.model.fields,field_description:vehicle_repair.field_year_manufacture__id
 msgid "ID"
 msgstr "التسلسل"
 
@@ -307,9 +295,24 @@ msgid "Initial examinations"
 msgstr "فحوصات اولية"
 
 #. module: vehicle_repair
+#: model:ir.model.fields,field_description:vehicle_repair.field_product_product__default_code
+msgid "Internal Reference"
+msgstr "المرجع"
+
+#. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order__partner_invoice_id
 msgid "Invoice Address"
 msgstr "عنوان الفاتورة"
+
+#. module: vehicle_repair
+#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__is_ending
+msgid "Is Ending"
+msgstr "نهاية"
+
+#. module: vehicle_repair
+#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__is_start
+msgid "Is Starting"
+msgstr "بدأ"
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_product_product__is_technician_problem
@@ -330,10 +333,13 @@ msgstr "كم"
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_brands__write_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_models__write_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__write_uid
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_cylinder__write_uid
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_liter__write_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__write_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__write_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__write_uid
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__write_uid
+#: model:ir.model.fields,field_description:vehicle_repair.field_year_manufacture__write_uid
 msgid "Last Updated by"
 msgstr ""
 
@@ -341,10 +347,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_brands__write_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_car_models__write_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__write_date
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_cylinder__write_date
+#: model:ir.model.fields,field_description:vehicle_repair.field_engine_size_liter__write_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__write_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__write_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__write_date
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__write_date
+#: model:ir.model.fields,field_description:vehicle_repair.field_year_manufacture__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -352,6 +361,11 @@ msgstr ""
 #: model:ir.model,name:vehicle_repair.model_crm_lead
 msgid "Lead/Opportunity"
 msgstr "عميل مهتم/فرصة "
+
+#. module: vehicle_repair
+#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_tag__priority___
+msgid "Low"
+msgstr "خفيف"
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__member_id
@@ -383,6 +397,16 @@ msgstr "موديلات"
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.view_technician_car_form
 msgid "Moves Line"
 msgstr ""
+
+#. module: vehicle_repair
+#: model:ir.model.fields,field_description:vehicle_repair.field_product_category__next_seq
+msgid "Next Sequence"
+msgstr "التسلسل التالي"
+
+#. module: vehicle_repair
+#: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_tag__priority__normal
+msgid "Normal"
+msgstr "متوسط"
 
 #. module: vehicle_repair
 #: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__state__not_served
@@ -420,6 +444,11 @@ msgid "Partner"
 msgstr "عميل"
 
 #. module: vehicle_repair
+#: model:ir.model.fields,field_description:vehicle_repair.field_product_category__sequence
+msgid "Prefix"
+msgstr "بداية التسلسل"
+
+#. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__price_unit
 msgid "Price"
 msgstr "السعر"
@@ -434,6 +463,16 @@ msgstr "طباعة تقرير الفني"
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order_from_helpdesk__product_id
 msgid "Product"
 msgstr "المنتج"
+
+#. module: vehicle_repair
+#: model:ir.model,name:vehicle_repair.model_product_category
+msgid "Product Category"
+msgstr "فئة المنتج"
+
+#. module: vehicle_repair
+#: model:ir.model,name:vehicle_repair.model_product_tag
+msgid "Product Tag"
+msgstr ""
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__product_tag_lines
@@ -463,7 +502,7 @@ msgstr ""
 #. module: vehicle_repair
 #: model:ir.model,name:vehicle_repair.model_sale_order_from_helpdesk
 msgid "Sale Order from Technician"
-msgstr ""
+msgstr "أمر بيع من فني"
 
 #. module: vehicle_repair
 #: model:ir.model,name:vehicle_repair.model_sale_order
@@ -476,6 +515,11 @@ msgid "Sales Order Line"
 msgstr "بند أمر المبيعات"
 
 #. module: vehicle_repair
+#: model:ir.model.fields,field_description:vehicle_repair.field_product_tag__sequence
+msgid "Sequence"
+msgstr "تسلسل"
+
+#. module: vehicle_repair
 #: model:ir.model.fields.selection,name:vehicle_repair.selection__technician_car__state__served
 msgid "Served"
 msgstr " بالصيانة"
@@ -485,11 +529,6 @@ msgstr " بالصيانة"
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__show_timesheet_button
 msgid "Show Timesheet Button"
 msgstr "السماح في رؤية سجل التوقيت"
-
-#. module: vehicle_repair
-#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__stage_id
-msgid "Stage"
-msgstr "مرحلة"
 
 #. module: vehicle_repair
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.view_technician_car_form
@@ -521,8 +560,9 @@ msgstr "اسم الفني"
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_sale_order__helpdesk_order_ids
+#: model_terms:ir.ui.view,arch_db:vehicle_repair.view_order_form_inherit_helpdesk
 msgid "Technician Orders"
-msgstr ""
+msgstr "أوامر فني"
 
 #. module: vehicle_repair
 #: model:ir.actions.act_window,name:vehicle_repair.action_car_technician
@@ -558,7 +598,7 @@ msgstr "تذكرة"
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_member__ticket_count
 msgid "Tickets Count"
-msgstr ""
+msgstr "عدد التذاكر"
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__timesheet_ids
@@ -583,8 +623,15 @@ msgid "Vehicle Repair Report"
 msgstr "تقرير صيانة السيارات"
 
 #. module: vehicle_repair
-#: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__year_manufacture
-#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__year_manufacture
+#: model:ir.model.fields,field_description:vehicle_repair.field_year_manufacture__name
+msgid "Year"
+msgstr "سنة "
+
+#. module: vehicle_repair
+#: model:ir.actions.act_window,name:vehicle_repair.action_year_manufacture
+#: model:ir.model,name:vehicle_repair.model_year_manufacture
+#: model:ir.model.fields,field_description:vehicle_repair.field_chevy_number__year_manufacture_id
+#: model:ir.model.fields,field_description:vehicle_repair.field_technician_car__year_manufacture_id
 msgid "Year of Manufacture"
 msgstr "سنة الصنع"
 
@@ -605,6 +652,7 @@ msgstr "الاسم"
 
 #. module: vehicle_repair
 #: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__boolean_field
+#: model:ir.model.fields,field_description:vehicle_repair.field_technician_tag__priority
 #: model_terms:ir.ui.view,arch_db:vehicle_repair.report_technician_car
 msgid "problem?"
 msgstr "المشكلة؟"
