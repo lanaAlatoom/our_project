@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Extending the order receipt to add the Dine-in, Takeaway, or Delivery label on it. -->
+<templates id="template" xml:space="preserve">
+    <t t-name="TakeAwayReceipt" t-inherit="point_of_sale.ReceiptHeader"
+       t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('cashier')]" position="before">
+            <t t-if='props.takeaway'>
+                <div>--------------------------------</div>
+                <div>
+                    <span style="font-weight:bold;font-size: 13px;">
+                         سفري
+                    </span>
+                </div>
+            </t>
+            <t t-if='props.delivery'>
+                <div>--------------------------------</div>
+                <div>
+                    <span style="font-weight:bold;font-size: 13px;">
+                        توصيل
+                    </span>
+                </div>
+            </t>
+            <t t-if='props.talabat'>
+                <div>--------------------------------</div>
+                <div>
+                    <span style="font-weight:bold;font-size: 13px;">
+                        طلبات
+                    </span>
+                </div>
+            </t>
+            <t t-if='props.order_phone'>
+                <div>--------------------------------</div>
+                <div>
+                    <span style="font-weight:bold;font-size: 13px;">
+                        طلب هاتف
+                    </span>
+                </div>
+            </t>
+            <t t-if='props.token_number'>
+                <div>--------------------------------</div>
+                <div>
+                    <span style="font-weight:bold;font-size: 13px;">
+                        Token Number : <t t-esc="props.token_number"/>
+                    </span>
+                </div>
+            </t>
+            <t t-if="!props.takeaway &amp;&amp; !props.delivery &amp;&amp; !props.order_phone &amp;&amp; !props.talabat">
+                <div>--------------------------------</div>
+                <div>
+                    <span style="font-weight:bold;font-size: 13px;">
+                        Dine-In
+                    </span>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

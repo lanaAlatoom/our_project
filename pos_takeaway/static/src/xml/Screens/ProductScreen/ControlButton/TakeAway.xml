@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+     <!-- Order Phone Button Template -->
+    <t t-name="OrderPhoneButton" owl="1">
+        <div class="control-button btn btn-light rounded-0 fw-bolder OrderPhoneButtonClass"
+             t-ref="OrderPhone" t-on-click="onClick">
+            <i class="fa fa-phone"/>
+            <span>طلب هاتف</span>
+        </div>
+    </t>
+
+
+    <!-- Delivery Button Template -->
+    <t t-name="DeliveryButton" owl="1">
+        <div class="control-button btn btn-light rounded-0 fw-bolder DeliveryButtonClass"
+             t-ref="Delivery" t-on-click="onClick">
+            <i class="fa fa-truck"/>
+            <span>توصيل</span>
+        </div>
+    </t>
+
+    <t t-name="TalabatButton" owl="1">
+        <div class="control-button btn btn-light rounded-0 fw-bolder TalabatButtonClass"
+             t-ref="Talabat" t-on-click="onClick">
+            <i class="fa fa-truck"/>
+            <span>طلبات</span>
+        </div>
+    </t>
+
+     <!-- TakeAway Button Template -->
+    <t t-name="TakeAwayButton" owl="1">
+        <div class="control-button btn btn-light rounded-0 fw-bolder TakeAwayButtonClass"
+             t-ref="TakeAway" t-on-click="onClick">
+            <i class="fa fa-shopping-basket"/>
+            <span>سفري</span>
+        </div>
+    </t>
+
+
+     <t t-name="OpenCashboxButton" owl="1">
+        <div class="control-button btn btn-light rounded-0 fw-bolder CashboxButtonClass"
+             t-on-click="onClick">
+            <i class="fa fa-archive"/>
+            <span>Open Cashbox</span>
+        </div>
+    </t>
+
+
+</templates>

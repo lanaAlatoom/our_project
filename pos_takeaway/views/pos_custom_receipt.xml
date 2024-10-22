@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="inherit_pos_receipt_template" inherit_id="point_of_sale.OrderChangeReceipt">
+        <xpath expr="//div[@class='pos-receipt']" position="before">
+            <div style="text-align:center; font-size: 18px; font-weight: bold;">
+                Fixed Letter
+            </div>
+        </xpath>
+    </template>
+</odoo>

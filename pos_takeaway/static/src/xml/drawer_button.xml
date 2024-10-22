@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="OpenCashDrawerButton" owl="1">
+        <div class="button js_cashdrawer btn btn-light py-3 text-start rounded-0 border-bottom"
+             t-ref="OpenCashDrawer" t-on-click="openCashbox">
+            <i class="fa fa-archive me-2" />Open Cashbox
+        </div>
+    </t>
+
+</templates>
+
+
