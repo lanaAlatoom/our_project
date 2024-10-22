@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="GiftReceipt" owl="1">
+        <div class="pos-receipt">
+            <t t-if="env.pos.company_logo_base64">
+                <img class="pos-receipt-logo" t-att-src="env.pos.company_logo_base64" alt="Logo"/>
+                <br/>
+            </t>
+            <div class="pos-receipt-contact">
+                <t t-if="env.pos.company.contact_address">
+                    <div><t t-esc="env.pos.company.contact_address" /></div>
+                </t>
+                <t t-if="env.pos.company.phone">
+                    <div>Tel:<t t-esc="env.pos.company.phone"/></div>
+                </t>
+                <t t-if="env.pos.company.vat">
+                    <div>Vat:<t t-esc="env.pos.company.vat"/></div>
+                </t>
+                <t t-if="env.pos.company.email">
+                    <div><t t-esc="env.pos.company.email" /></div>
+                </t>
+                <t t-if="env.pos.company.website">
+                    <div><t t-esc="env.pos.company.website" /></div>
+                </t>
+                <t t-if="env.pos.user">
+                    <div class="cashier">
+                        <div>--------------------------------</div>
+                        <div>Served by <t t-esc="env.pos.user.name"/></div>
+                    </div>
+                </t>
+            </div>
+            <br/>
+            <br/>
+            <t t-if="env.pos.config.enable_gift_receipt">
+                <t t-if="props.confirmation">
+                    <div align="center" style="margin:0 auto;padding:0 auto;font-size:18px">
+                        <strong>Gift Receipt</strong>
+                    </div>
+                    <br/>
+                    <!-- Orderlines -->
+                    <div class="orderlines">
+                        ------------------------------------------------------
+                        <t t-foreach="props.product_data" t-as="line" t-key="line_index">
+                            <t>
+                                <t t-foreach="props.orderlines" t-as="line1" t-key="line1_index">
+                                    <t t-if="line1.id == line[0]">
+                                         <!-- Check if line1.order is defined before accessing its properties -->
+                                        <t t-if="line1.order">
+                                             <div class="responsive-price">
+                                                 <t t-esc="line[1]"/>
+                                                 <span t-esc="line1.quantity"
+                                                       class="price_display pos-receipt-right-align"/>
+                                            </div>
+                                         </t>
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                        ------------------------------------------------------
+                    </div>
+                    <br/>
+                    <div style="text-align: center;">
+                         <img id="barcode"/>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div align="center" style="border:1px solid black;margin:0 auto;padding:0 auto;font-size:18px">
+                        <strong>Gift Receipt</strong>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="orderlines">
+                        <t t-foreach="products" t-as="line" t-key="line.id">
+                            <t>
+                                <!-- Check if line.order is defined before accessing its properties -->
+                                <t t-if="line.order">
+                                    <div class="responsive-price">
+                                        <t t-esc="line.product.display_name"/>
+                                        <span t-esc="line.quantity" class="price_display pos-receipt-right-align"/>
+                                    </div>
+                                </t>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+            <t t-else="">
+                <div align="center" style="border:1px solid black;margin:0 auto;padding:0 auto;font-size:18px">
+                    <strong>Gift Receipt</strong>
+                </div>
+                <br/>
+                <div class="orderlines"  style="margin-top: 5px; font-size: 14px; text-align: center;">
+                         <t t-set="prev_order_name" t-value="''"/>
+                    <t t-foreach="products" t-as="line" t-key="line.id">
+        <t t-if="line.order">
+            <t t-if="line.order.name != prev_order_name">
+                <div class="responsive-price" align="center">
+                    <span t-esc="line.order.name"/>
+                </div>
+            </t>
+            <t t-set="prev_order_name" t-value="line.order.name"/>
+        </t>
+    </t>
+</div>
+                <br/>
+                <br/>
+                <div class="orderlines">
+                    <t t-foreach="products" t-as="line" t-key="line.id">
+                        <t>
+                            <!-- Check if line.order is defined before accessing its properties -->
+                            <t t-if="line.order">
+                                <div class="responsive-price">
+                                    <t t-esc="line.product.display_name"/>
+                                    <span t-esc="line.quantity" class="price_display pos-receipt-right-align"/>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div align="center" style="margin-top: 5px;font-size:14px">
+                    <div><t t-esc="date_time" /></div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

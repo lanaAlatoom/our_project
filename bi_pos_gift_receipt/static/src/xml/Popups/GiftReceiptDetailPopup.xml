@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="GiftReceiptDetailPopup" owl="1">
+        <div role="dialog" class="modal-dialog">
+            <Draggable>
+                <div class="popup popup-confirm" style="max-width: 700px;">
+                    <header class="title drag-handle" style="color: black;">
+                        <t t-esc="props.title"/>
+                    </header>
+                    <main class="body" style="overflow-y: scroll; min-height: 300px; height: 300px;">
+                        <table frame="void" rules="rows" id="order_line_content"
+                               style="width: 98%;">
+                            <tbody style="font-size: medium;">
+                                <tr>
+                                    <th style="padding: 20px;"/>
+                                    <th style="padding: 20px;"/>
+                                    <th> Product </th>
+                                    <th> Quantity </th>
+                                </tr>
+                            </tbody>
+                            <t t-foreach="props.lines" t-as="line" t-key="line.id">
+                                <tr>
+                                    <td style="border-bottom: 1px solid black;">
+                                        <input type="checkbox" t-att-id="line.id" name="checkbox"
+                                               style="width: 20px; box-shadow: none;"/>
+                                    </td>
+                                    <td style="border-bottom: 1px solid black;">
+                                        <input type="text" t-att-id="line.id" name="input-text"
+                                           style="width: 50px;margin-top: 3px; margin-bottom: 3px;text-align: center;
+                                                        box-shadow: 0px 0px 0px 1px black inset;"/>
+                                    </td>
+                                    <td style="border-bottom: 1px solid black; padding: 7px;">
+                                        <t t-if="line.product">
+                                            <t t-esc='line.product.display_name' />
+                                        </t>
+                                        <t t-else="">
+                                            ----
+                                        </t>
+                                    </td>
+                                    <td style="border-bottom: 1px solid black; padding: 7px;">
+                                        <t t-if="line.quantity">
+                                            <t t-esc='line.quantity'/>
+                                        </t>
+                                        <t t-else="">
+                                            0
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </main>
+                    <footer class="footer">
+                        <div class="button confirm" t-on-click="confirm"
+                             style="background: #017e84; color: white;">
+                            <t t-esc="props.confirmText"/>
+                        </div>
+                        <div class="button cancel" t-on-click="cancel" style="color: black;">
+                            <t t-esc="props.cancelText"/>
+                        </div>
+                    </footer>
+                </div>
+            </Draggable>
+        </div>
+    </t>
+</templates>
